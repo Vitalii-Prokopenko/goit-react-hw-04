@@ -9,6 +9,8 @@ const LoadMoreBtn = ({onClick}) => {
   );
 };
 
-// LoadMoreBtn.PropTypes = {};
+LoadMoreBtn.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default LoadMoreBtn;

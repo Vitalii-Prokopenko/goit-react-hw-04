@@ -7,7 +7,7 @@ import css from "./searchbar.module.css";
 const SearchBar = ({ onSearch }) => {
   const handleSubmit = (values, actions) => {
     if (values.tag === "") {
-      toast.error('Type something to search!');
+      toast.error("Type something to search!");
       return;
     }
     onSearch(values.tag);
@@ -35,11 +35,13 @@ const SearchBar = ({ onSearch }) => {
           />
         </Form>
       </Formik>
-      <Toaster position="top-right"/>
+      <Toaster position="top-right" />
     </header>
   );
 };
 
-// SearchBar.propTypes = {};
+SearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

@@ -1,6 +1,4 @@
 import { ThreeDots } from "react-loader-spinner";
-import PropTypes from "prop-types";
-import css from "./loader.module.css";
 
 const Loader = () => {
   return (
@@ -13,13 +11,10 @@ const Loader = () => {
       ariaLabel="three-dots-loading"
       wrapperStyle={{
         marginTop: "70px",
-
       }}
       wrapperClass=""
     />
   );
 };
-
-// Loader.PropTypes = {};
 
 export default Loader;

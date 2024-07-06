@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "./App.css";
 import SearchBar from "./components/searchbar/SearchBar";
 import Loader from "./components/loader/Loader";
 import ErrorMessage from "./components/errormessage/ErrorMessage";
 import LoadMoreBtn from "./components/loadmorebtn/LoadMoreBtn";
-import { fetchImagesWithTag } from "./services/images-api";
 import ImageGallery from "./components/imagegallery/ImageGallery";
+import ImageModal from "./components/imagemodal/ImageModal";
+import { fetchImagesWithTag } from "./services/images-api";
 
 function App() {
   const [images, setImages] = useState([]);
@@ -14,7 +14,9 @@ function App() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1000000);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);  
+  const [error, setError] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [clickedImage, setClickedImage] = useState({});
 
   const handleSearch = async (newTag) => {
     setImages([]);
@@ -49,13 +51,42 @@ function App() {
     getImages();
   }, [tag, page]);
 
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOverlayClick = (event) => {
+    if (event.currentTarget === event.target) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleClickOnImage = (event) => {
+    const targetId = event.target.id;
+    const clickedImage = images.find((image) => image.id === targetId);
+    setClickedImage(clickedImage);
+    setIsOpen(true);
+  };
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {images.length > 0 && <ImageGallery imagesToShow={images} />}
+      {images.length > 0 && (
+        <ImageGallery imagesToShow={images} onClickImage={handleClickOnImage} />
+      )}
+      {isOpen && (
+        <ImageModal
+          modalIsOpen={isOpen}
+          handleRequestClose={handleModalClose}
+          clickedImage={clickedImage}
+          handleOverlayClick={handleOverlayClick}
+        />
+      )}
       {loading && <Loader />}
       {error && <ErrorMessage />}
-      {images.length > 0 && !loading && page < totalPages &&<LoadMoreBtn onClick={handleLoadMore} /> }
+      {images.length > 0 && !loading && page < totalPages && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
     </>
   );
 }

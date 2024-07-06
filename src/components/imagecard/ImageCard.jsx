@@ -9,6 +9,8 @@ const ImageCard = ({ image }) => {
   );
 };
 
-// ImageCard.PropTypes = {};
+ImageCard.propTypes = {
+  image: PropTypes.object.isRequired,
+};
 
 export default ImageCard;
