@@ -4,11 +4,11 @@ import css from "./imagegallery.module.css";
 
 const ImageGallery = ({ imagesToShow, onClickImage }) => {
   return (
-    <ul className={css.gallery} onClick={onClickImage}>
+    <ul className={css.gallery}>
       {imagesToShow.map((image) => {
         return (
           <li className={css.galleryItem} key={image.id}>
-            <ImageCard image={image} />
+            <ImageCard image={image} onClick={onClickImage} />
           </li>
         );
       })}

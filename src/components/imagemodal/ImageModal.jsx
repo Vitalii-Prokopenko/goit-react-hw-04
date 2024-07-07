@@ -1,9 +1,6 @@
 import ReactModal from "react-modal";
-import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import css from "./imagemodal.module.css";
-
-const modalRoot = document.querySelector("#modal-root");
 
 ReactModal.setAppElement("#root");
 
@@ -13,7 +10,7 @@ const ImageModal = ({
   clickedImage,
   handleOverlayClick,
 }) => {
-  return createPortal(
+  return (
     <ReactModal
       isOpen={modalIsOpen}
       onRequestClose={handleRequestClose}
@@ -25,8 +22,7 @@ const ImageModal = ({
           <img className={css.modalImg} src={clickedImage.urls.regular} />
         </div>
       </div>
-    </ReactModal>,
-    modalRoot
+    </ReactModal>
   );
 };
 
